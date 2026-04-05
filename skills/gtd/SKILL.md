@@ -253,9 +253,47 @@ Next: Task Z — [name]
 Start a new chat and run /gtd run to continue.
 ```
 
-If all tasks are done:
+If all tasks are done, run the **Final Verification** before declaring completion.
+
+### Step E12: Final Verification (runs only when all tasks are done)
+
+This step catches integration bugs, missing imports, and conflicting patterns across tasks.
+
+**1. Run the full test suite**
+
+Run the project's base test command from `index.md` (not a task-specific one). Use the full suite:
+- If tests pass → continue
+- If tests fail → fix and retry (max 2 retries)
+- If still failing → tell the user what's broken and ask for help
+
+**2. Final code review**
+
+Read all `task-XX.md` files to collect the complete list of files modified across ALL tasks. Then spawn a code review subagent:
+
+Use the Agent tool with:
+- subagent_type: "general-purpose"
+- prompt:
+  - "This is a final integration review of a multi-task feature. Review ALL the following files together for integration issues, inconsistencies, and bugs."
+  - "Files to review: [complete list of all files from all tasks]"
+  - "Check for: (1) integration bugs between components, (2) missing or circular imports, (3) inconsistent patterns across files, (4) security issues, (5) simplification opportunities across the codebase."
+  - "Read each file fully. Be concise. Report issues or say 'LGTM'."
+  - "Do NOT make any edits. Only report findings."
+
+If the subagent reports issues:
+1. Fix the issues
+2. Re-run the full test suite
+3. If tests pass, proceed
+
+**3. Final git checkpoint**
+
+Ask the user: "All tasks verified. Create a final integration commit?"
+
+If approved, commit with message: `gtd: Final verification — [plan title]`
+
+**4. Completion**
+
 ```
-All N tasks complete! The GTD plan is finished.
+All N tasks complete and verified!
 Run /gtd reset to clean up the plan files.
 ```
 
