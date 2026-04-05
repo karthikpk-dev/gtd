@@ -7,7 +7,7 @@ Designed for developers on Claude's $20/month plan who need to manage context wi
 ## Install
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/gtd.git
+git clone https://github.com/karthikpk-dev/gtd.git
 cd gtd
 chmod +x install.sh && ./install.sh
 ```
