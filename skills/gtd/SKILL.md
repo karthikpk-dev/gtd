@@ -253,9 +253,15 @@ Next: Task Z — [name]
 Start a new chat and run /gtd run to continue.
 ```
 
-If all tasks are done, run the **Final Verification** before declaring completion.
+If all tasks are done, ask the user:
+```
+All N tasks complete. Run final integration verification?
+(full test suite + cross-task code review)
+```
 
-### Step E12: Final Verification (runs only when all tasks are done)
+If the user declines, skip to Step E12 section **4. Completion**.
+
+### Step E12: Final Verification (runs only when all tasks are done and user agrees)
 
 This step catches integration bugs, missing imports, and conflicting patterns across tasks.
 
